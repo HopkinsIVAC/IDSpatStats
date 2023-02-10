@@ -3,6 +3,8 @@
 #include <Rmath.h>
 #include <R_ext/Rdynload.h>
 #include <Rdefines.h>
+#include <math.h>
+#include "calc_geodist.h"
 
 
 /*****************************************************************/
@@ -104,6 +106,8 @@ void get_pi_clustsurvey (double *p,
 		   double *r,
 		   int *len_r,
 		   int *inds,
+		   int *coord_type_geo,
+		   char *dist_unit,
 		   double *rc) {
 
   int i,j,k;
@@ -140,7 +144,11 @@ void get_pi_clustsurvey (double *p,
 				sj = 0;
                 
                 // Calculate distance between clusters i and j
-				dist = sqrt(pow(x[i]-x[j],2)+pow(y[i]-y[j],2));
+                if (coord_type_geo) {
+                    dist = calc_distance(y[i], x[i], y[j], x[j], *dist_unit);
+                } else {
+                    dist = sqrt(pow(x[i]-x[j],2)+pow(y[i]-y[j],2));
+                }
 				  
 				if ((dist<=r[k]) & (dist>=r_low[k])) {
 					sj = s[j];  // number of individuals in the cluster j
@@ -1180,6 +1188,8 @@ void get_tau_clustsurvey (double *p,
 		    double *r,
 		    int *len_r,
 		    int *inds,
+		    int *coord_type_geo,
+		    char *dist_unit,
 		    double *rc) {
 
     int i = 0;
@@ -1189,10 +1199,10 @@ void get_tau_clustsurvey (double *p,
     int tmp_len_r = 1;
 
     /*get the divisor in the pi function*/
-    get_pi_clustsurvey(p,x,y,s,len,&tmp_r_low,&tmp_r,&tmp_len_r,inds,&divisor);
+    get_pi_clustsurvey(p,x,y,s,len,&tmp_r_low,&tmp_r,&tmp_len_r,inds,coord_type_geo,dist_unit,&divisor);
 
     /*get the main pi function*/
-    get_pi_clustsurvey(p,x,y,s,len,r_low,r,len_r,inds,rc);
+    get_pi_clustsurvey(p,x,y,s,len,r_low,r,len_r,inds,coord_type_geo,dist_unit,rc);
 
     for (i = 0; i < *len_r; i++) {
       rc[i] = rc[i]/divisor;

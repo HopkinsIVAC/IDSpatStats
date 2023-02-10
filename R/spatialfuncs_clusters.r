@@ -64,7 +64,11 @@ get.pi.typed.wts <- function(posmat,
 ##'
 get.pi.clustsurvey <- function(posmat,
                                r=1,
-                               r.low=rep(0,length(r))) {
+                               r.low=rep(0,length(r)),
+                               coord_type_geo = FALSE,
+                               dist_unit = "K") {
+    
+    dist_unit <- toupper(substr(dist_unit, 1, 1))
     
     return(.C("get_pi_clustsurvey",
               as.double(posmat[,"p"]),
@@ -76,6 +80,8 @@ get.pi.clustsurvey <- function(posmat,
               as.double(r),
               as.integer(length(r)),
               as.integer(1:nrow(posmat)),
+              as.double(coord_type_geo),
+              as.character(dist_unit),
               rc=double(length(r))
     )$rc)
 }
@@ -542,6 +548,8 @@ get.pi.clustsurvey.bootstrap <- function(posmat,
                      as.double(r),
                      as.integer(length(r)),
                      as.integer(inds),
+                     as.double(coord_type_geo),
+                     as.character(dist_unit),
                      rc=double(length(r))
         )$rc
     }
@@ -778,7 +786,12 @@ get.tau.typed.wts <- function(posmat,
 ##'
 get.tau.clustsurvey <- function(posmat,
                                 r=1,
-                                r.low=rep(0,length(r))) {
+                                r.low=rep(0,length(r)),
+                                coord_type_geo=FALSE,
+                                dist_unit = "K") {
+    
+    dist_unit <- toupper(substr(dist_unit, 1, 1))
+    
     return(.C("get_tau_clustsurvey",
               as.double(posmat[,"p"]),
               as.double(posmat[,"x"]),
@@ -789,6 +802,8 @@ get.tau.clustsurvey <- function(posmat,
               as.double(r),
               as.integer(length(r)),
               as.integer(1:nrow(posmat)),
+              as.double(coord_type_geo),
+              as.character(dist_unit),
               rc=double(length(r))
     )$rc)
 }
@@ -1287,6 +1302,8 @@ get.tau.clustsurvey.bootstrap <- function(posmat,
                      as.double(r),
                      as.integer(length(r)),
                      as.integer(inds),
+                     as.double(coord_type_geo),
+                     as.character(dist_unit),
                      rc=double(length(r))
         )$rc
     }

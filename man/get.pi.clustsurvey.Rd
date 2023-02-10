@@ -4,7 +4,13 @@
 \alias{get.pi.clustsurvey}
 \title{Optimized version of \code{get.pi} for typed data.}
 \usage{
-get.pi.clustsurvey(posmat, r = 1, r.low = rep(0, length(r)))
+get.pi.clustsurvey(
+  posmat,
+  r = 1,
+  r.low = rep(0, length(r)),
+  coord_type_geo = TRUE,
+  dist_unit = "K"
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x, y, and weight}

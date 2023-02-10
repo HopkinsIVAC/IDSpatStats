@@ -4,7 +4,13 @@
 \alias{get.tau.clustsurvey}
 \title{Optimizewd version of \code{get.tau} for typed data}
 \usage{
-get.tau.clustsurvey(posmat, r = 1, r.low = rep(0, length(r)))
+get.tau.clustsurvey(
+  posmat,
+  r = 1,
+  r.low = rep(0, length(r)),
+  coord_type_geo = TRUE,
+  dist_unit = "K"
+)
 }
 \arguments{
 \item{posmat}{a matrix with columns type, x, y, and weight}

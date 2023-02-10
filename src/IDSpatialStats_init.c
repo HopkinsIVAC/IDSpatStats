@@ -1,3 +1,4 @@
+// Run produce this automatically using `tools::package_native_routine_registration_skeleton(".")`
 #include <R.h>
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
@@ -16,7 +17,7 @@ extern void get_pi_b_clustsurvey_hh_wts(void *, void *, void *, void *, void *, 
 extern void get_pi_b_clustsurvey_wts(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_b_typed_clustsurvey_hh_wts(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_b_typed_clustsurvey_wts(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void get_pi_clustsurvey(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void get_pi_clustsurvey(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_clustsurvey_hh_wts_window(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_clustsurvey_window(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_clustsurvey_wts_window(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -24,7 +25,7 @@ extern void get_pi_hh_typed(void *, void *, void *, void *, void *, void *, void
 extern void get_pi_typed(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_typed_survey(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_pi_typed_wts(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void get_tau_clustsurvey(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void get_tau_clustsurvey(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_tau_clustsurvey_hh_wts(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_tau_clustsurvey_hh_wts_window(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void get_tau_clustsurvey_window(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -53,7 +54,7 @@ static const R_CMethodDef CEntries[] = {
     {"get_pi_b_clustsurvey_wts",          (DL_FUNC) &get_pi_b_clustsurvey_wts,          14},
     {"get_pi_b_typed_clustsurvey_hh_wts", (DL_FUNC) &get_pi_b_typed_clustsurvey_hh_wts, 20},
     {"get_pi_b_typed_clustsurvey_wts",    (DL_FUNC) &get_pi_b_typed_clustsurvey_wts,    18},
-    {"get_pi_clustsurvey",                (DL_FUNC) &get_pi_clustsurvey,                10},
+    {"get_pi_clustsurvey",                (DL_FUNC) &get_pi_clustsurvey,                12},
     {"get_pi_clustsurvey_hh_wts_window",  (DL_FUNC) &get_pi_clustsurvey_hh_wts_window,  16},
     {"get_pi_clustsurvey_window",         (DL_FUNC) &get_pi_clustsurvey_window,         11},
     {"get_pi_clustsurvey_wts_window",     (DL_FUNC) &get_pi_clustsurvey_wts_window,     14},
@@ -61,7 +62,7 @@ static const R_CMethodDef CEntries[] = {
     {"get_pi_typed",                      (DL_FUNC) &get_pi_typed,                      11},
     {"get_pi_typed_survey",               (DL_FUNC) &get_pi_typed_survey,               11},
     {"get_pi_typed_wts",                  (DL_FUNC) &get_pi_typed_wts,                  12},
-    {"get_tau_clustsurvey",               (DL_FUNC) &get_tau_clustsurvey,               10},
+    {"get_tau_clustsurvey",               (DL_FUNC) &get_tau_clustsurvey,               12},
     {"get_tau_clustsurvey_hh_wts",        (DL_FUNC) &get_tau_clustsurvey_hh_wts,        18},
     {"get_tau_clustsurvey_hh_wts_window", (DL_FUNC) &get_tau_clustsurvey_hh_wts_window, 16},
     {"get_tau_clustsurvey_window",        (DL_FUNC) &get_tau_clustsurvey_window,        11},
