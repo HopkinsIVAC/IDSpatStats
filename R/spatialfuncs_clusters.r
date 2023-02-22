@@ -269,6 +269,70 @@ get.pi.b.typed.clustsurvey.wts <- function(posmat,
     )$rc)
 }
 
+
+
+
+
+##' Optimized version of \code{get.pi} for weighted cluster survey data.
+##'
+##' Version of the \code{get.pi} function that is optimized for cluster survey data. That is
+##' data where individuals are grouped into clusters, as collected with the Demographics and Health Surveys.
+##'
+##' @param posmat a matrix with columns type, x, y, and weight
+##' @param r the series of spatial distances wer are interested in
+##' @param r.low the low end of each range....0  by default
+##'
+##' @return pi values for all the distances we looked at
+##'
+##' @author Justin Lessler and Henrik Salje
+##'
+##' @family get.pi
+##'
+##' 
+##' @export
+##'
+get.pi.typed.gridcells <- function(posmat,
+                                           typeA = -1,
+                                           typeB = -1,
+                                           r=1,
+                                           r.low=rep(0,length(r)),
+                                           remove_self=FALSE) {
+    return(.C("get_pi_typed_gridcells",
+              as.double(posmat[,"p"]),
+              as.integer(posmat[,"type_a"]),
+              as.integer(posmat[,"type_b"]),
+              as.double(posmat[,"x"]),
+              as.double(posmat[,"y"]),
+              as.integer(posmat[,"s"]),
+              as.double(posmat[,"weight"]),
+              as.double(posmat[,"delta"]),
+              as.double(posmat[,"alpha"]),
+              as.integer(nrow(posmat)),
+              as.integer(typeA),
+              as.integer(typeB),
+              as.double(r.low),
+              as.double(r),
+              as.integer(length(r)),
+              as.integer(nrow(posmat)),
+              as.integer(1:nrow(posmat)),
+              as.integer(remove_self),
+              pimat = array(data = 0, dim = c(nrow(posmat), as.integer(length(r))))
+    )$pimat)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ##' Optimized version of \code{get.pi} for weighted cluster survey data.
 ##'
 ##' Version of the \code{get.pi} function that is optimized for cluster survey data. That is
