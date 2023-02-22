@@ -5,7 +5,8 @@
 #include <Rdefines.h>
 #include <math.h>
 #include "calc_geodist.h"
-
+#include <stdio.h>
+#include <string.h>
 
 /*****************************************************************/
 /*pi function optimized for iterating through a list of two types*/
@@ -337,6 +338,7 @@ void get_pi_b_clustsurvey_wts (double *p,
                                double *rc,
                                int *remove_self) {
     
+    
     int i,j,k;
     int skip_r, skip_phi;  /*counters for those filling conditions*/
 double sum_numerator_i, sum_denom_i, sum_delta_j, sum_alpha_j;
@@ -349,6 +351,8 @@ for (k=0;k<*len_r;k++) {
     skip_r = 1;
     
     for (i=0;i<*len;i++) {
+        // Skip cluster if no individuals with the characteristic
+        if (p[i] == 0) continue;
         
         sum_delta_j = 0;
         sum_alpha_j = 0;
@@ -363,10 +367,9 @@ for (k=0;k<*len_r;k++) {
             
             if ((dist<=r[k]) & (dist>=r_low[k])) {
                 
-                // adjust for self
                 if ((inds[j] == inds[i]) & (*remove_self == 1)) {
                     // Weighted number of susceptibles
-                    sum_delta_j = sum_delta_j + delta[j] - weight[j]; 
+                    sum_delta_j = sum_delta_j + delta[j] - weight[j];
                     // Weighted number of individuals
                     sum_alpha_j = sum_alpha_j + alpha[j] - weight[j];
                 } 
@@ -384,8 +387,8 @@ for (k=0;k<*len_r;k++) {
         
         if (skip_phi == 1) continue;
         
-        sum_numerator_i = sum_numerator_i + (alpha[i] * sum_delta_j);
-        sum_denom_i = sum_denom_i + (alpha[i] * sum_alpha_j);
+        sum_numerator_i = sum_numerator_i + (delta[i] * sum_delta_j);
+        sum_denom_i = sum_denom_i + (delta[i] * sum_alpha_j);
     }
     
     //Skip if no phi values for that distance of r
@@ -628,6 +631,106 @@ for (k=0;k<*len_r;k++) {
     }
 }
 }
+
+
+
+
+
+
+
+
+
+
+/*****************************************************************/
+/*pi function optimized for iterating through a list of two types*/
+/*finding ones that fulfill the distance requirement.            */
+/*                                                               */
+/*@param type_1  the first type column                           */
+/*@param type_2  the second type column                          */
+/*@param x       the x coordinate                                */
+/*@param y       the y coordinate                                */
+/*@param weight  the sample weight of the individual/cluster     */
+/*@param alpha   the weighted number of individuals/cluster      */
+/*@param delta   the weighted number of non-vacc indivs/cluster  */
+/*@param len     the length of the three data arrays             */
+/*@param typeA   the "from" type                                 */
+/*@param typeB   the "to" type                                   */
+/*@param r_low   the low end of the range of values to look at   */
+/*@param r       the sequence of upper distances to consider     */
+/*@param len_r   the number of different Rs to consider          */
+/*                   usually will be just the indicies           */
+/*@param inds    the indices into the original array, helps boot */
+/*@param rc      the array of values that we are going to return */
+/*****************************************************************/
+void get_pi_typed_gridcells (double *p,
+                             int *type_a,
+                             int *type_b,
+                             double *x,
+                             double *y,
+                             int *s,
+                             double *weight,
+                             double *delta,
+                             double *alpha,
+                             int *len,
+                             int *typeA,
+                             int *typeB,
+                             double *r_low,
+                             double *r,
+                             int *len_r,
+                             int *len_g,
+                             int *inds,
+                             int *remove_self,
+                             double **pimat) {
+                                 
+    int i, g;
+    // double pimat[*len_g][*len_r];
+    double pi_est[*len_r];
+    int type_a_new[*len_g];
+    
+
+    for (g=0; g<*len_g; g++) {
+    
+        memcpy(type_a_new, type_a, sizeof type_a_new);
+        type_a_new[g] = *typeA;
+        
+        /*get the numerator pi function*/
+        get_pi_a_typed_clustsurvey_wts(p,type_a,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,r_low,r,len_r,inds,pi_est,remove_self);
+
+        for (i=0; i<*len_r; i++) {
+            pimat[g][i] = pi_est[i];
+        }        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+        // /* modify the data for each gridcell */
+        // for (t=0; t<*len_g; t++) {
+        //     if (t==g) {
+        //         type_a_new[t] = *typeA;
+        //     } else {
+        //         type_a_new[t] = *typeB;
+        //     }
+        // }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1322,7 +1425,7 @@ void get_tau_typed_clustsurvey_wts (double *p,
     get_pi_a_typed_clustsurvey_wts(p,type_a,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,r_low,r,len_r,inds,numerator,remove_self);
     
     /*get the denominator pi function*/
-    get_pi_b_typed_clustsurvey_wts(p,type_a,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,0,r_max,&len_r_denom,inds,denominator,remove_self);
+    get_pi_a_typed_clustsurvey_wts(p,type_a,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,0,r_max,&len_r_denom,inds,denominator,remove_self);
     
     for (i = 0; i < *len_r; i++) {
         rc[i] = numerator[i]/denominator[i];

@@ -63,6 +63,7 @@ Other get.pi:
 \code{\link{get.pi.hh.typed}()},
 \code{\link{get.pi.permute}()},
 \code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.gridcells}()},
 \code{\link{get.pi.typed.survey}()},
 \code{\link{get.pi.typed.wts.bootstrap}()},
 \code{\link{get.pi.typed.wts.ci}()},

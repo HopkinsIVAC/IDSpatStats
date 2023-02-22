@@ -8,7 +8,7 @@ get.tau.clustsurvey(
   posmat,
   r = 1,
   r.low = rep(0, length(r)),
-  coord_type_geo = TRUE,
+  coord_type_geo = FALSE,
   dist_unit = "K"
 )
 }

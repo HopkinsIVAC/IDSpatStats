@@ -8,7 +8,7 @@ get.pi.clustsurvey(
   posmat,
   r = 1,
   r.low = rep(0, length(r)),
-  coord_type_geo = TRUE,
+  coord_type_geo = FALSE,
   dist_unit = "K"
 )
 }
@@ -49,6 +49,7 @@ Other get.pi:
 \code{\link{get.pi.hh.typed}()},
 \code{\link{get.pi.permute}()},
 \code{\link{get.pi.typed.bootstrap}()},
+\code{\link{get.pi.typed.gridcells}()},
 \code{\link{get.pi.typed.permute}()},
 \code{\link{get.pi.typed.survey}()},
 \code{\link{get.pi.typed.wts.bootstrap}()},
