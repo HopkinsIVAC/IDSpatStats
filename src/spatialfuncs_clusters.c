@@ -680,7 +680,7 @@ void get_pi_typed_gridcells (double *p,
                              int *len_g,
                              int *inds,
                              int *remove_self,
-                             double **pimat) {
+                             double *pimat) {
                                  
     int i, g, m;
     // double pimat[*len_g][*len_r];
@@ -707,7 +707,8 @@ void get_pi_typed_gridcells (double *p,
         get_pi_a_typed_clustsurvey_wts(p,type_a_new,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,r_low,r,len_r,inds,pi_est,remove_self);
 
         for (i=0; i<*len_r; i++) {
-            pimat[g][i] = pi_est[i];
+            int ind_ = g * *len_r + i;
+            pimat[ind_] = pi_est[i];
         }        
     }
 }
