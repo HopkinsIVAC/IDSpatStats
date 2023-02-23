@@ -694,7 +694,7 @@ void get_pi_typed_gridcells (double *p,
         type_a_new[g] = *typeA;
         
         /*get the numerator pi function*/
-        get_pi_a_typed_clustsurvey_wts(p,type_a,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,r_low,r,len_r,inds,pi_est,remove_self);
+        get_pi_a_typed_clustsurvey_wts(p,type_a_new,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,r_low,r,len_r,inds,pi_est,remove_self);
 
         for (i=0; i<*len_r; i++) {
             pimat[g][i] = pi_est[i];
