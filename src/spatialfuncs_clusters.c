@@ -658,7 +658,8 @@ for (k=0;k<*len_r;k++) {
 /*@param r_low   the low end of the range of values to look at   */
 /*@param r       the sequence of upper distances to consider     */
 /*@param len_r   the number of different Rs to consider          */
-/*                   usually will be just the indicies           */
+/*@param len_g   the number of different locations to 
+                    calculate clustering from                    */
 /*@param inds    the indices into the original array, helps boot */
 /*@param rc      the array of values that we are going to return */
 /*****************************************************************/
