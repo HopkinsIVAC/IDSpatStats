@@ -24,7 +24,13 @@ To rebuild `IDSpatialStats` after modification, follow these steps:
 
 ## Installing
 
-    Run `devtools::install_github("https://github.com/HopkinsIVAC/IDSpatStats", force = TRUE)` to install from GitHub.
+    *NOTE* - Sometimes you need to uninstall the old version. To do this run:
+    
+    `detach("package:IDSpatialStats")`
+    `remove.packages("IDSpatialStats")`
+        
+
+    Run `devtools::install_github("https://github.com/HopkinsIVAC/IDSpatStats")` to install from GitHub.
     
     Make sure other instances of RStudio are closed and your .dll files are not being synced by OneDrive or Dropbox or anything.
     
