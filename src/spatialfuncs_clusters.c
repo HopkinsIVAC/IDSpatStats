@@ -687,6 +687,7 @@ void get_pi_typed_gridcells (double *p,
     // double pimat[*len_g][*len_r];
     double pi_est[*len_r];
     int type_a_new[*len_g];
+    //double *ptr = pimat;  // deleted temp
     
 
     for (g=0; g<*len_g; g++) {
@@ -706,23 +707,28 @@ void get_pi_typed_gridcells (double *p,
         
         /*get the numerator pi function*/
         get_pi_a_typed_clustsurvey_wts(p,type_a_new,type_b,x,y,s,weight,delta,alpha,len,typeA,typeB,r_low,r,len_r,inds,pi_est,remove_self);
-
+/*
         for (i=0; i<*len_r; i++) {
             int ind_ = g * *len_r + i;
             pimat[ind_] = pi_est[i];
-        }        
+        } 
+ */
+ /* simplified as below but no result changed  - frozen until the reason for matrix problem clarified 
+  * 2023.3.30 
+  * ksato8
+  
+        for (i=0; i<*len_r; i++){
+          *ptr++ = pi_est[i];
+        }
+  */
+  /* temporary code for output matrix adjustment 2023.3.30 by ksato8 */
+        for (i=0; i<*len_r; i++){
+          int ind_ = g +  *len_g * i; 
+          pimat[ind_] = pi_est[i];
+        }
+        
     }
 }
-
-
-
-
-
-
-
-
-
-
 
         // /* modify the data for each gridcell */
         // for (t=0; t<*len_g; t++) {
